@@ -4,10 +4,51 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.0" />
+    <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="6.1.1" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Repositories\PaymentsRepository.cs">
+      <DependentUpon>IPaymentsRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Services\PaymentsService.cs">
+      <DependentUpon>IPaymentsService.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Infrastructure\MerchantContextService.cs">
+      <DependentUpon>IMerchantContextService.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Infrastructure\SystemDateTimeProvider.cs">
+      <DependentUpon>IDateTimeProvider.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Contracts\V1\Payments\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.IntegrationTests.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>appsettings.json</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+    <Content Update="appsettings.IntegrationTests.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
   </ItemGroup>
 
 </Project>
